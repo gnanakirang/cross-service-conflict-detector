@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Body, HTTPException
 from ..db import db
 from ..services.conflict_detector import detect_conflicts
 from ..api.ai_client import ai_explain_and_recommend
@@ -39,3 +39,22 @@ async def detect(customer_id: str):
     conflicts = detect_conflicts(profile, txs)
     explanation = await ai_explain_and_recommend(profile, conflicts)
     return {"conflicts": conflicts, "explanation": explanation}
+
+@router.post("/transactions/inject/{customer_id}")
+async def inject_transaction(customer_id: str, tx: dict = Body(...)):
+    """
+    Inject a single transaction for demo purposes.
+    Example body:
+    {
+      "id": "t_demo_1",
+      "customer_id": "cust_001",
+      "date": "2026-06-02T09:00:00",
+      "amount": 20000,
+      "category": "bills",
+      "type": "expense",
+      "description": "Upcoming rent"
+    }
+    """
+    tx["customer_id"] = customer_id
+    await db.transactions.insert_one(tx)
+    return {"status": "inserted", "tx": tx}
