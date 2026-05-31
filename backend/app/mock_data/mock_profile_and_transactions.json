@@ -1,0 +1,18 @@
+{
+  "profile": {
+    "customer_id": "cust_001",
+    "name": "A. Kumar",
+    "age": 34,
+    "dependents": 1,
+    "monthly_income": 120000,
+    "monthly_emi": 25000,
+    "monthly_sip": 10000,
+    "balance": 30000,
+    "risk_appetite": "moderate"
+  },
+  "transactions": [
+    {"id":"t1","customer_id":"cust_001","date":"2026-05-28T10:00:00","amount":120000,"category":"income","type":"income","description":"Salary"},
+    {"id":"t2","customer_id":"cust_001","date":"2026-05-29T09:00:00","amount":25000,"category":"loan","type":"expense","description":"EMI"},
+    {"id":"t3","customer_id":"cust_001","date":"2026-05-30T08:00:00","amount":10000,"category":"investment","type":"expense","description":"SIP"}
+  ]
+}
